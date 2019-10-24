@@ -185,13 +185,13 @@ EnhancedTripLeg::EnhancedTripLeg(TripLeg& trip_path) : trip_path_(trip_path) {
 }
 
 std::unique_ptr<EnhancedTripLeg_Node> EnhancedTripLeg::GetEnhancedNode(const int node_index) {
-  return midgard::make_unique<EnhancedTripLeg_Node>(mutable_node(node_index));
+  return std::make_unique<EnhancedTripLeg_Node>(mutable_node(node_index));
 }
 
 std::unique_ptr<EnhancedTripLeg_Edge> EnhancedTripLeg::GetPrevEdge(const int node_index, int delta) {
   int index = node_index - delta;
   if (IsValidNodeIndex(index)) {
-    return midgard::make_unique<EnhancedTripLeg_Edge>(mutable_node(index)->mutable_edge());
+    return std::make_unique<EnhancedTripLeg_Edge>(mutable_node(index)->mutable_edge());
   } else {
     return nullptr;
   }
@@ -204,7 +204,7 @@ std::unique_ptr<EnhancedTripLeg_Edge> EnhancedTripLeg::GetCurrEdge(const int nod
 std::unique_ptr<EnhancedTripLeg_Edge> EnhancedTripLeg::GetNextEdge(const int node_index, int delta) {
   int index = node_index + delta;
   if (IsValidNodeIndex(index) && !IsLastNodeIndex(index)) {
-    return midgard::make_unique<EnhancedTripLeg_Edge>(mutable_node(index)->mutable_edge());
+    return std::make_unique<EnhancedTripLeg_Edge>(mutable_node(index)->mutable_edge());
   } else {
     return nullptr;
   }
@@ -236,7 +236,7 @@ int EnhancedTripLeg::GetLastNodeIndex() const {
 }
 
 std::unique_ptr<EnhancedTripLeg_Admin> EnhancedTripLeg::GetAdmin(size_t index) {
-  return midgard::make_unique<EnhancedTripLeg_Admin>(mutable_admin(index));
+  return std::make_unique<EnhancedTripLeg_Admin>(mutable_admin(index));
 }
 
 std::string EnhancedTripLeg::GetCountryCode(int node_index) {
@@ -1274,7 +1274,7 @@ bool EnhancedTripLeg_Node::HasIntersectingEdgeCurrNameConsistency() const {
 
 std::unique_ptr<EnhancedTripLeg_IntersectingEdge>
 EnhancedTripLeg_Node::GetIntersectingEdge(size_t index) {
-  return midgard::make_unique<EnhancedTripLeg_IntersectingEdge>(mutable_intersecting_edge(index));
+  return std::make_unique<EnhancedTripLeg_IntersectingEdge>(mutable_intersecting_edge(index));
 }
 
 void EnhancedTripLeg_Node::CalculateRightLeftIntersectingEdgeCounts(
